@@ -16,4 +16,4 @@ after_success:
   - ssh liuqi@111.231.1.210 -p 36302 "./a.sh"
 
 addons:
-   ssh_known_hosts: [111.231.1.210]:36302
+   ssh_known_hosts: 111.231.1.210:36302
