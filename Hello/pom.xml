@@ -6,7 +6,7 @@
     <groupId>me.xlui</groupId>
     <artifactId>spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>spring</name>
     <description>Test Travis CI</description>
