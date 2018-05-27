@@ -1,19 +1,13 @@
 language: java
-
 jdk:
-  - openjdk8
-
+- openjdk8
 before_install:
-  - openssl aes-256-cbc -K $encrypted_9655a05d2431_key -iv $encrypted_9655a05d2431_iv
-    -in id_rsa.enc -out ~/.ssh/id_rsa -d
-  - chmod 600 ~/.ssh/id_rsa
-
+- openssl aes-256-cbc -K $encrypted_9655a05d2431_key -iv $encrypted_9655a05d2431_iv
+  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
 install: cd Hello && mvn install -DskipTests=true -Dmaven.javadoc.skip=true
-
 script: mvn test
-
 after_success:
-  - ssh -p 36302 liuqi@111.231.1.210 "./a.sh"
-
+- ssh -p 36302 liuqi@111.231.1.210 "./a.sh"
 addons:
-   ssh_known_hosts: 111.231.1.210:36302
+  ssh_known_hosts: 111.231.1.210:36302
