@@ -2,26 +2,21 @@
 
 [![Build Status](https://travis-ci.org/xlui/test-travis-ci.svg?branch=master)](https://travis-ci.org/xlui/test-travis-ci)
 
-This is a repository to test [Travis Continuous Integration](https://travis-ci.org/).
-
-And I will show you how to automatically test and deploy java web projects.
+This repository shows how to use [Travis Continuous Integration](https://travis-ci.org/) in your project.
 
 ## Write in Front
 
-In my last project, I used to test and deploy in such processes: write code in local environment, test at local, use maven to package the project into a war file, and upload it to my deploy server, restart tomcat. Doing this process cost at least 10 minutes. And in addition, if I find an error after a deploy, I need to deploy again...
+In my last project, I used to test and deploy in such processes: write code in a local environment, test at local, use maven to package the project into a `war` file, upload it to the deploy server, deploy it, and restart tomcat. Doing this process cost at least 10 minutes. And in addition, if I find an error after a deploy, I need to deploy again...
 
 This makes me tired, and now I'd like to try some continuous integration solutions such as travis and jenkins. I'm preffer to travis because it is closer to github.
 
-Travis CI is an online and distributed continuous integration service provider, it works closely with github and is free for open source projects.
-
-
 ## Register Travis
 
-Goto the official website of travis and register with your github account.
+Go to the official website of travis and register with your github account.
 
 ![Travis Register](https://xlui.me/images/travis-register.png "Travis Registeration Page")
 
-After your registration, goto you profile page(this is automate) and choose one of you open source projects and click to open travis ci service.
+After your registration, go to you profile page(this is automate) and choose one of you open source projects and click to open travis ci service.
 
 ## Create a java web project
 
@@ -130,7 +125,7 @@ install: cd Hello && mvn install -DskipTests=true -Dmaven.javadoc.skip=true
 script: mvn test
 ```
 
-Note that in this project, we create java web project under the folder `Hello`, so as the value of `install`(a bash command), we need change our directory to `Hello` first and then run `mvn install`.
+Note that we create the java web project under the folder `Hello`, so as the value of `install`(always is a bash command), we need to change our directory to `Hello` first and then run `mvn install`.
 
 ## Trigger Build
 
@@ -142,9 +137,9 @@ Commit and push the code to github, travis will automatically build this maven p
 
 Now travis can do build pocess automatically after our commits to github, and next we want travis to do auto-deploy.
 
-Travis provide us a option `after_success` to do that.
+Travis provide us an option `after_success` to do that.
 
-But pause here. We want travis to deploy project to our server, this means that we need travis to access our server automatically. This project is an open source project, so expose our secret key to github is stupid. How can we solve it?
+But pause here. We want travis to auto-deploy projects to our server, this means that we need travis to access our server automatically. This project is an open source project, so expose our secret key to github is stupid. How can we solve it?
 
 ### Encrypt your password
 
@@ -183,9 +178,9 @@ Successfully logged in as xlui!
 
 Input your github username, password, two-factor code(only if you have enable it before).
 
-Change directory to your project directory.
+Change the directory to your project directory.
 
-In order to enable travis to access your server, we should encrypt our **local** ssh secret key(So I think we all should use public key to login to server).
+In order to enable travis to access your server, we should encrypt our **local** ssh secret key(So I think we should use public key to login to server, and this should be the only way).
 
 ```
 $ cd test-travis-ci/
@@ -208,7 +203,7 @@ before_install:
   -in id_rsa.enc -out ~\/.ssh/id_rsa -d
 ```
 
-In order to ensure ssh login would not be failed due to permissions, we set the permission of secret key manually.
+In order to ensure ssh login would not be failed due to permissions, we need to set the permission of secret key manually.
 
 ```yml
 before_install:
@@ -230,7 +225,7 @@ All things done, now travis can access your server without password authenticati
 
 ### Deploy Scripts
 
-Thus travis can access your server without any limits, we can write a deploy script and run it throught travis.
+Thus travis can access your server without any limits, we can write a deploy script and run it through travis.
 
 ```bash
 echo "Auto Deploy Success" >> a.log
